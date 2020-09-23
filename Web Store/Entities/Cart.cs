@@ -15,7 +15,7 @@ namespace Web_Store.Entities
 
         public int Quantity { get; set; }
 
-        public System.DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public int ProductId { get; set; }
 
