@@ -11,8 +11,10 @@
 
         @if (User.IsInRole("Admin"))
         {
-            <li>@Html.ActionLink("Add New Admin", "AddNewAdmin", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</li>
-            <li>@Html.ActionLink("Add New Product", "AddNewProduct", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</li>
+            <li> @Html.ActionLink( "Profile", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+
+            <li>@Html.ActionLink("New Admin", "AddNewAdmin", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</li>
+            <li>@Html.ActionLink("New Product", "AddNewProduct", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</li>
             <li>@Html.ActionLink("Edit Product", "AddNewProduct", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</li>
             <li>@Html.ActionLink("Categories", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</li>
 
@@ -22,7 +24,7 @@
         }
         else
         {
-    <li> @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+            <li> @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
 
             <li>@Html.ActionLink("Shopping", "Index", "Shop")</li>
         }

@@ -27,6 +27,10 @@ namespace Web_Store.Models
         [Display(Name = "Unit Price")]
         [Required(ErrorMessage = "Please enter a valid Price")]
         public decimal UnitPrice { get; set; }
+        
+        [Display(Name = "Quantity")]
+        [Required(ErrorMessage = "Please enter a valid Quantity")]
+        public int Quantity { get; set; }
 
         [Display(Name = "Product Category")]
         [Required(ErrorMessage = "Please enter a valid Product Category")]

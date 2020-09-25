@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web_Store.Entities;
+using Web_Store.Models;
 using Web_Store.Services;
 
 namespace Web_Store.Controllers
@@ -13,8 +15,9 @@ namespace Web_Store.Controllers
         public ActionResult Index()
         {
             var category = CategoryServices.GetCategory(null);
-
-            return View(category);
+            var product = ProductServices.GetProducts(null);
+            var tupleModel = new Tuple<List<Product>, List<string>>(product, category);
+            return View(tupleModel);
         }
     }
 }

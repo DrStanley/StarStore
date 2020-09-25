@@ -80,7 +80,7 @@ namespace Web_Store.Controllers
 			switch (result)
 			{
 				case SignInStatus.Success:
-					return RedirectToAction("Index", "Shop");
+					return RedirectToAction("Index", "Home");
 				case SignInStatus.LockedOut:
 					return View("Lockout");
 				case SignInStatus.RequiresVerification:

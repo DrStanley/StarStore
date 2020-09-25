@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using Web_Store.Models;
 
 namespace Web_Store.Entities
 {
@@ -24,6 +25,10 @@ namespace Web_Store.Entities
 
 		public decimal? UnitPrice { get; set; }
 
+		public string UserId { get; set; }
+		public ApplicationUser User { get; set; }
+
+		public int Quantity { get; set; }
 		public int? CategoryID { get; set; }
 
 		public virtual Category Category { get; set; }

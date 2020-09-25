@@ -201,6 +201,14 @@
     <Compile Include="Migrations\202009241321298_CategoryUserID.Designer.cs">
       <DependentUpon>202009241321298_CategoryUserID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009251602174_CategoryUserID1.cs" />
+    <Compile Include="Migrations\202009251602174_CategoryUserID1.Designer.cs">
+      <DependentUpon>202009251602174_CategoryUserID1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009251806577_CategoryUserID2.cs" />
+    <Compile Include="Migrations\202009251806577_CategoryUserID2.Designer.cs">
+      <DependentUpon>202009251806577_CategoryUserID2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAdminViewModel.cs" />
@@ -317,6 +325,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009241321298_CategoryUserID.resx">
       <DependentUpon>202009241321298_CategoryUserID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009251602174_CategoryUserID1.resx">
+      <DependentUpon>202009251602174_CategoryUserID1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009251806577_CategoryUserID2.resx">
+      <DependentUpon>202009251806577_CategoryUserID2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

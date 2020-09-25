@@ -2,7 +2,10 @@
 @{
     ViewBag.Title = "Shop";
 }
-@model IEnumerable<string>
+@using Web_Store.Entities;
+
+@model Tuple<List<Product>, List<string>>
+
 <script>
     var count = 0;
     function increment() {
@@ -18,75 +21,88 @@
 
 <div class="row">
     <h2 class="col-md-4">Shop</h2>
-   
+
     <div class="col-md-4" style="margin:20px">
         <label> Category: </label> <select onselect="alert('Hey')">
-            @foreach (var movie in Model)
-    {
-            <option>@movie</option>
-     
-    }
+            @foreach (var category in Model.Item2)
+            {
+                <option>@category</option>
+
+            }
         </select>
+        <button>Filter</button>
     </div>
     <a id="cart" class="col-md-2" href="#" style="font: bold; font-family: Arial; margin:20px; "> <label>Cart(<span id="spanCount">0</span>) </label></a>
 
 </div>
 
-
-<div class="row" style="border:5px #808080">
-    <hr />
-    <div class="col-md-4">
-        <h3>Item Name</h3>
-        <img src="~/Images/376821.jpg" alt="Logo" style="width:350px; height: 200px;" />
-    </div>
-    <div class="col-md-4">
-        <h3>Item Descrption</h3>
-        <p>
-            Size:S,M,L,XL,2XL,3XL,4XL,5XL
-
-            Fabric Material:100%Cotton
-
-            Suitable Type:Loose
-
-            Thickness:Standard
-
-            Colour:Blue,Black
-
-            Occasion:Leisure
-
-            Product Description:Men's Print Short Sleeve Shirt.
-
-
-
-            Package Included:
-
-            1 * Shirt
-        </p>
-
-    </div>
-    <div class="col-md-4">
-        <h3>Actions</h3>
-
-        <div class="form-group">
-            <label>Unit Price:</label>
-            <div>
-                <input type="text" value="#300" disabled />
+<hr />
+@if (Model.Item1.Count < 1)
+{
+    <h4 class="text-danger">Out of Stock</h4>
+}
+else
+{
+    foreach (var product in Model.Item1)
+    {
+        <div class="row" style="border:5px #808080">
+            <div class="col-md-4">
+                <h3>@product.ProductName</h3>
+                <img src="~/Images/376821.jpg" alt="Logo" style="width:350px; height: 200px;" />
             </div>
-        </div>
+            <div class="col-md-4">
+                <h3>Item Descrption</h3>
+                <p>@product.Description</p>
 
-        <div class="form-group">
-            <label>Quantity:</label>
-            <div>
-                <input type="number" min="0" value="1" />
             </div>
-        </div>
 
-        <div class="form-group">
-            <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" onclick="increment()" />
-        </div>
+            <div class="col-md-4">
+                <h3>Actions</h3>
 
-    </div>
-    <hr />
+                <div class="form-group">
+                    <label>Unit Price:</label>
+                    <div>
+                        <input type="text" value="@product.UnitPrice" disabled />
+                    </div>
+                </div>
+                @if (product.Quantity > 0)
+                {
+                    <div class="form-group">
+                        <label>Quantity:</label>
+                        <div>
+                            <input type="number" min="0" value="1" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" onclick="increment()" />
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label>Quantity:</label>
+                        <div>
+                            <input type="text" value="Out of Stock" disabled class="text-danger" />
+                        </div>
+                    </div>
+                }
+
+
+
+
+            </div>
+            <hr />
+        </div>
+        <hr />
+
+                }
+
+}
+<div>
+
+
+
 
 </div>
 
