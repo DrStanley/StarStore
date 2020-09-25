@@ -36,22 +36,32 @@ namespace Web_Store.Services
 			}
 		}
 
-		public static List<string> GetCategory(string cart)
+		public static List<string> GetCategory(string catgory)
 		{
 			List<string> all = new List<string>();
 			all.Add("All");
 
-			if (string.IsNullOrEmpty(cart))
+			if (string.IsNullOrEmpty(catgory))
 			{
 				all.AddRange(dbContext.categories.Select(o => o.CategoryName).ToList());
 			}
 			else
 			{
 				all.AddRange(dbContext.categories
-					.Where(o => o.CategoryName == cart)
+					.Where(o => o.CategoryName == catgory)
 					.Select(o => o.CategoryName)
 					.ToList());
 			}
+			return all;
+		}
+
+		public static int GetCategoryID(string category)
+		{
+			int all = dbContext.categories
+						.Where(o => o.CategoryName == category)
+						.Select(o => o.CategoryID)
+						.SingleOrDefault();
+
 			return all;
 		}
 	}
