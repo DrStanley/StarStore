@@ -189,14 +189,31 @@
     <Compile Include="Migrations\202009221701411_UserDateCreated.Designer.cs">
       <DependentUpon>202009221701411_UserDateCreated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009231329518_Customers.cs" />
+    <Compile Include="Migrations\202009231329518_Customers.Designer.cs">
+      <DependentUpon>202009231329518_Customers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009241207568_Category.cs" />
+    <Compile Include="Migrations\202009241207568_Category.Designer.cs">
+      <DependentUpon>202009241207568_Category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009241321298_CategoryUserID.cs" />
+    <Compile Include="Migrations\202009241321298_CategoryUserID.Designer.cs">
+      <DependentUpon>202009241321298_CategoryUserID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAdminViewModel.cs" />
-    <Compile Include="Models\AddProduct.cs" />
+    <Compile Include="Models\AddCategoryViewModel.cs" />
+    <Compile Include="Models\AddProductViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdminServices.cs" />
+    <Compile Include="Services\CartServices.cs" />
+    <Compile Include="Services\CategoryServices.cs" />
+    <Compile Include="Services\CustomerServices.cs" />
+    <Compile Include="Services\ProductServices.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +282,8 @@
     <Content Include="Views\Shop\Index.cshtml" />
     <Content Include="Views\Admin\AddNewAdmin.cshtml" />
     <Content Include="Views\Admin\MakeChart.cshtml" />
+    <Content Include="Views\Admin\AddNewProduct.cshtml" />
+    <Content Include="Views\Admin\AddCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -289,6 +308,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009221701411_UserDateCreated.resx">
       <DependentUpon>202009221701411_UserDateCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009231329518_Customers.resx">
+      <DependentUpon>202009231329518_Customers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009241207568_Category.resx">
+      <DependentUpon>202009241207568_Category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009241321298_CategoryUserID.resx">
+      <DependentUpon>202009241321298_CategoryUserID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

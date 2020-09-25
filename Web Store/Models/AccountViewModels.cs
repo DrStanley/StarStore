@@ -69,6 +69,25 @@ namespace Web_Store.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "Please enter first name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Please enter last name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Address")]
+        [Required(ErrorMessage = "Your full Address is needed for Identification")]
+        [StringLength(200, MinimumLength = 10)]
+        public string Address { get; set; }
+
+        [Display(Name = "Phone Number")]
+        [Required(ErrorMessage = "Please Enter a valid Phone Number.")]
+        [StringLength(15, MinimumLength = 11)]
+        public string PhoneNumber { get; set; }
+
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]

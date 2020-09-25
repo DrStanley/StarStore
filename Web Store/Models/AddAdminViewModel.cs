@@ -12,6 +12,7 @@ namespace Web_Store.Models
 		[EmailAddress]
 		[Required(ErrorMessage = "Please a valid email address")]
 		public string Email { get; set; }
+	
 
 		[Required(ErrorMessage = "Please enter a valid password")]
 		[DataType(DataType.Password)]
@@ -23,6 +24,7 @@ namespace Web_Store.Models
 
 		[Required(ErrorMessage = "Please enter a valid phone number")]
 		public string PhoneNumber { get; set; }
+
 
 	}
 }

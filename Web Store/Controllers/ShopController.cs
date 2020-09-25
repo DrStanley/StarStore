@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web_Store.Services;
 
 namespace Web_Store.Controllers
 {
@@ -11,7 +12,9 @@ namespace Web_Store.Controllers
         // GET: Shop
         public ActionResult Index()
         {
-            return View();
+            var category = CategoryServices.GetCategory(null);
+
+            return View(category);
         }
     }
 }

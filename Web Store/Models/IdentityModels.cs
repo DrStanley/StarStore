@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Web_Store.Entities;
 
 namespace Web_Store.Models
 {
@@ -31,5 +32,9 @@ namespace Web_Store.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Customer> customers { get; set; }
+        public DbSet<Category> categories { get; set; }
+
     }
 }
