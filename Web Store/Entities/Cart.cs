@@ -9,8 +9,6 @@ namespace Web_Store.Entities
 	public class Cart
 	{
         [Key]
-        public string ItemId { get; set; }
-
         public string CartId { get; set; }
 
         public int Quantity { get; set; }
