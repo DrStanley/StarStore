@@ -209,6 +209,10 @@
     <Compile Include="Migrations\202009251806577_CategoryUserID2.Designer.cs">
       <DependentUpon>202009251806577_CategoryUserID2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009252154131_Product.cs" />
+    <Compile Include="Migrations\202009252154131_Product.Designer.cs">
+      <DependentUpon>202009252154131_Product.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddAdminViewModel.cs" />
@@ -331,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009251806577_CategoryUserID2.resx">
       <DependentUpon>202009251806577_CategoryUserID2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009252154131_Product.resx">
+      <DependentUpon>202009252154131_Product.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

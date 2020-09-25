@@ -19,5 +19,14 @@ namespace Web_Store.Controllers
             var tupleModel = new Tuple<List<Product>, List<string>>(product, category);
             return View(tupleModel);
         }
+
+        [HttpPost]
+        [Authorize]
+        public JsonResult AddToCart(string cartItem)
+        {
+            // 0 = id, 1 = qantity
+            string[] cart = cartItem.Split(',');
+            return Json(cart);
+        }
     }
 }

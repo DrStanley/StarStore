@@ -8,13 +8,32 @@
 
 <script>
     var count = 0;
-    function increment() {
+    function increment(x) {
         var l = document.getElementById("spanCount");
         var v = l.innerText;
         var value = v == "" ? 0 : parseInt(v);
+
+     //   var ProPrice = document.getElementById("prodPrice_"+x).value;
+        var ProId = document.getElementById("prodId_"+x).value;
+        var ProQuan = document.getElementById("prodQuant_" + x).value;
+        var item = ProId + "," + ProQuan + "," + ProPrice;
         value++;
         l.innerText = value;
-        alert("Added to Cart")
+        alert("Added to Cart ")
+
+        $.ajax({
+            url: "/Shop/AddToCart",
+            type: "POST",
+            data: '{item: "' + item + '" }',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (mydata) {
+            },
+            error: function (error) {
+                alert("Error: "+error);
+            }
+        });
+     
     }
 
 </script>
@@ -37,16 +56,20 @@
 </div>
 
 <hr />
+
 @if (Model.Item1.Count < 1)
 {
     <h4 class="text-danger">Out of Stock</h4>
 }
 else
 {
+    int count = 0;
     foreach (var product in Model.Item1)
     {
+        count++;
+        var x = count;
 <div class="row" style="border:5px #808080">
-    <input type="hidden"  value="@product.ProductID" />
+    <input id="prodId_@x" type="hidden"  value="@product.ProductID" />
     <div class="col-md-4">
         <h3>@product.ProductName</h3>
         <img src="~/Images/376821.jpg" alt="Logo" style="width:350px; height: 200px;" />
@@ -63,7 +86,7 @@ else
         <div class="form-group">
             <label>Unit Price:</label>
             <div>
-                <input type="text" value="@product.UnitPrice" disabled />
+                <input id="prodPrice_@x" type="text" value="@product.UnitPrice" disabled />
             </div>
         </div>
         @if (product.Quantity > 0)
@@ -71,12 +94,12 @@ else
             <div class="form-group">
                 <label>Quantity:</label>
                 <div>
-                    <input type="number" min="0" value="1" />
+                    <input id="prodQuant_@x" type="number" min="0" value="1" />
                 </div>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" onclick="increment()" />
+                <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" onclick="increment(@x)"/>
             </div>
         }
         else
@@ -89,21 +112,12 @@ else
             </div>
         }
 
-
-
-
     </div>
     <hr />
 </div>
         <hr />
 
                 }
-
 }
-<div>
 
-
-
-
-</div>
 
