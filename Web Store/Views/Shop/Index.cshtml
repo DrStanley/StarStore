@@ -22,7 +22,8 @@
 
     </div>
         }
-        <a id="cart" class="col-md-2" href="#" style="font: bold; font-family: Arial; margin:20px; "> <label>Cart(@Model.Item3) </label></a>
+        <label style="font: bold; font-family: Arial; margin:20px;">
+        @Html.ActionLink("Cart("+Model.Item3+")", "VeiwCart", "Shop")</label>
 
     </div>
 

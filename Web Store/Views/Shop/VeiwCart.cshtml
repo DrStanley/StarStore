@@ -1,0 +1,46 @@
+﻿@using Web_Store.Entities;
+@model Tuple<List<Product>, List<Cart>>
+
+    <div class="panel-body">
+        @if (Model.Item2.Count < 1)
+        {
+            <h4 class="text-danger">No Cart Added</h4>
+        }
+        else
+        {
+            int count = 0;
+            <table border="1" class="col-lg-10" style="margin:5px;">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+                @foreach (var product in Model.Item1)
+                {
+                    using (Html.BeginForm("AddToCart", "Shop"))
+                    {
+                        var x = count;
+                        foreach (var cart in Model.Item2)
+                        {
+
+                            <tr style="margin:5px;">
+                                <td>@product.ProductName</td>
+                                <td>@cart.Quantity</td>
+                                <td>@product.UnitPrice</td>
+                                <td>@((product.UnitPrice*cart.Quantity))</td>
+                                <td><input type="submit" value="Remove" class="btn-success" onclick="alert('Removed')" /></td>
+                            </tr>
+
+                        }
+                    }
+                }
+            </table>
+            <br />
+            <div class="row col-lg-10">
+                <input type="submit" value="Purchase" class="btn-lg btn-info" />
+            </div>
+            <br />
+        }
+    </div>

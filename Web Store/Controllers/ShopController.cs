@@ -19,17 +19,17 @@ namespace Web_Store.Controllers
 			var category = CategoryServices.GetCategory();
 			var product = ProductServices.GetProducts(null);
 			int CartCount = CartServices.GetCartCount(HttpContext.User.Identity.GetUserId());
-			var tupleModel = new Tuple<List<Product>, List<string>,int>(product, category,CartCount);
+			var tupleModel = new Tuple<List<Product>, List<string>, int>(product, category, CartCount);
 			return View(tupleModel);
 		}
-		
+
 		[HttpPost]
 		public ActionResult Index(string options)
 		{
 			var category = CategoryServices.GetCategory();
 			var product = ProductServices.GetProducts(options);
 			int CartCount = CartServices.GetCartCount(HttpContext.User.Identity.GetUserId());
-			var tupleModel = new Tuple<List<Product>, List<string>,int>(product, category,CartCount);
+			var tupleModel = new Tuple<List<Product>, List<string>, int>(product, category, CartCount);
 			return View(tupleModel);
 		}
 
@@ -45,6 +45,14 @@ namespace Web_Store.Controllers
 			CartServices.AddCart(product, HttpContext.User.Identity.GetUserId());
 
 			return RedirectToAction("Index", "Shop");
+		}
+
+		[Authorize]
+		public ActionResult VeiwCart()
+		{
+			var cartProduct = CartServices.DisplayCarts(HttpContext.User.Identity.GetUserId());
+			
+			return View(cartProduct);
 		}
 	}
 }
