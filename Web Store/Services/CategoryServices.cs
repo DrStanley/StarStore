@@ -36,22 +36,13 @@ namespace Web_Store.Services
 			}
 		}
 
-		public static List<string> GetCategory(string catgory)
+		public static List<string> GetCategory()
 		{
 			List<string> all = new List<string>();
 			all.Add("All");
 
-			if (string.IsNullOrEmpty(catgory))
-			{
-				all.AddRange(dbContext.categories.Select(o => o.CategoryName).ToList());
-			}
-			else
-			{
-				all.AddRange(dbContext.categories
-					.Where(o => o.CategoryName == catgory)
-					.Select(o => o.CategoryName)
-					.ToList());
-			}
+			all.AddRange(dbContext.categories.Select(o => o.CategoryName).ToList());
+
 			return all;
 		}
 

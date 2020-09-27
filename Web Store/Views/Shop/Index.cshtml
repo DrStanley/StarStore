@@ -4,56 +4,27 @@
 }
 @using Web_Store.Entities;
 
-@model Tuple<List<Product>, List<string>>
+@model Tuple<List<Product>, List<string>,int>
 
-<script>
-    var count = 0;
-    function increment(x) {
-        var l = document.getElementById("spanCount");
-        var v = l.innerText;
-        var value = v == "" ? 0 : parseInt(v);
-
-     //   var ProPrice = document.getElementById("prodPrice_"+x).value;
-        var ProId = document.getElementById("prodId_"+x).value;
-        var ProQuan = document.getElementById("prodQuant_" + x).value;
-        var item = ProId + "," + ProQuan + "," + ProPrice;
-        value++;
-        l.innerText = value;
-        alert("Added to Cart ")
-
-        $.ajax({
-            url: "/Shop/AddToCart",
-            type: "POST",
-            data: '{item: "' + item + '" }',
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (mydata) {
-            },
-            error: function (error) {
-                alert("Error: "+error);
-            }
-        });
-     
-    }
-
-</script>
-
-<div class="row">
-    <h2 class="col-md-4">Shop</h2>
-
+    <div class="row">
+        <h2 class="col-md-4">Shop</h2>
+        @using (Html.BeginForm("Index", "Shop"))
+        {
     <div class="col-md-4" style="margin:20px">
-        <label> Category: </label> <select onselect="alert('Hey')">
+        <label> Category: </label> <select name="options">
             @foreach (var category in Model.Item2)
             {
                 <option>@category</option>
 
             }
         </select>
-        <button>Filter</button>
-    </div>
-    <a id="cart" class="col-md-2" href="#" style="font: bold; font-family: Arial; margin:20px; "> <label>Cart(<span id="spanCount">0</span>) </label></a>
+        <input type="submit" value="Filter" class="btn-lg btn-info"/>
 
-</div>
+    </div>
+        }
+        <a id="cart" class="col-md-2" href="#" style="font: bold; font-family: Arial; margin:20px; "> <label>Cart(@Model.Item3) </label></a>
+
+    </div>
 
 <hr />
 
@@ -64,60 +35,61 @@
 else
 {
     int count = 0;
-    foreach (var product in Model.Item1)
+    using (Html.BeginForm("AddToCart", "Shop"))
     {
-        count++;
-        var x = count;
-<div class="row" style="border:5px #808080">
-    <input id="prodId_@x" type="hidden"  value="@product.ProductID" />
-    <div class="col-md-4">
-        <h3>@product.ProductName</h3>
-        <img src="~/Images/376821.jpg" alt="Logo" style="width:350px; height: 200px;" />
-    </div>
-    <div class="col-md-4">
-        <h3>Item Descrption</h3>
-        <p>@product.Description</p>
-
-    </div>
-
-    <div class="col-md-4">
-        <h3>Actions</h3>
-
-        <div class="form-group">
-            <label>Unit Price:</label>
-            <div>
-                <input id="prodPrice_@x" type="text" value="@product.UnitPrice" disabled />
-            </div>
-        </div>
-        @if (product.Quantity > 0)
+        foreach (var product in Model.Item1)
         {
-            <div class="form-group">
-                <label>Quantity:</label>
-                <div>
-                    <input id="prodQuant_@x" type="number" min="0" value="1" />
+            var x = count;
+            <div class="row" style="border:5px #808080">
+                <input id="prodId_@x" type="hidden" value="@product.ProductID" name="productID"/>
+                <div class="col-md-4">
+                    <h3>@product.ProductName</h3>
+                    <img src="~/Images/376821.jpg" alt="Logo" style="width:350px; height: 200px;" />
                 </div>
-            </div>
+                <div class="col-md-4">
+                    <h3>Item Descrption</h3>
+                    <p>@product.Description</p>
 
-            <div class="form-group">
-                <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" onclick="increment(@x)"/>
-            </div>
-        }
-        else
-        {
-            <div class="form-group">
-                <label>Quantity:</label>
-                <div>
-                    <input type="text" value="Out of Stock" disabled class="text-danger" />
                 </div>
+
+                <div class="col-md-4">
+                    <h3>Actions</h3>
+
+                    <div class="form-group">
+                        <label>Unit Price:</label>
+                        <div>
+                            <input id="prodPrice_@x" type="text" value="@product.UnitPrice" disabled />
+                        </div>
+                    </div>
+                    @if (product.Quantity > 0)
+                    {
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <div>
+                                <input id="prodQuant_@x" type="number" min="0" value="1" name="productQuantity" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" onclick="alert('Added')" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label>Quantity:</label>
+                            <div>
+                                <input type="text" value="Out of Stock" disabled class="text-danger" />
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <hr />
             </div>
+            <hr />
+
         }
-
-    </div>
-    <hr />
-</div>
-        <hr />
-
-                }
+    }
 }
-
 
