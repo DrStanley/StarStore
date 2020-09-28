@@ -45,6 +45,19 @@ namespace Web_Store.Controllers
 			CartServices.AddCart(product, HttpContext.User.Identity.GetUserId());
 
 			return RedirectToAction("Index", "Shop");
+		}	
+		
+		[HttpPost]
+		[Authorize]
+		public ActionResult RemoveCart(string cartID)
+		{
+
+			Cart cart = new Cart();
+			cart.CartId = cartID;
+
+			CartServices.RemoveCart(cart);
+
+			return RedirectToAction("VeiwCart", "Shop");
 		}
 
 		[Authorize]
