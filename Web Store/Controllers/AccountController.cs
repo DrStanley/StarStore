@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Web_Store.Interfaces;
 using Web_Store.Models;
 using Web_Store.Services;
 
@@ -162,7 +163,8 @@ namespace Web_Store.Controllers
 				var result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
-					CustomerServices.CreateCustomers(model, user.Id);
+					ICustomer newCustomer = new CustomerServices();
+					newCustomer.CreateCustomers(model, user.Id);
 
 					await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 

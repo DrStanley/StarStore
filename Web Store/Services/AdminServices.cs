@@ -4,17 +4,18 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Web_Store.Interfaces;
 using Web_Store.Models;
 
 namespace Web_Store.Services
 {
-	public class AdminServices
+	public class AdminServices : IAdmin
 	{
 		public static ApplicationDbContext dbContext = new ApplicationDbContext();
 
+		
 
-
-		public static string Addadmin(AddAdminViewModel AdminDetails)
+		public string Addadmin(AddAdminViewModel AdminDetails)
 		{
 			var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dbContext));
 			var rolemanager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(dbContext));

@@ -12,7 +12,7 @@ namespace Web_Store.Models
 
 		[Required(ErrorMessage = "Please enter a valid Category Name")]
 		[Display(Name = "Category Name")]
-		[StringLength(200, MinimumLength = 5)]
+		[StringLength(200, MinimumLength = 3)]
 		public string CategoryName { get; set; }
 
 		[Required(ErrorMessage = "Please enter a valid Category Description")]

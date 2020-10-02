@@ -5,14 +5,15 @@ using System.Linq;
 using System.Web;
 using Web_Store.Entities;
 using Web_Store.Models;
+using Web_Store.Interfaces;
 
 namespace Web_Store.Services
 {
-	public class CartServices
+	public class CartServices : ICart
 	{
-		public static ApplicationDbContext dbContext = new ApplicationDbContext();
+		public  ApplicationDbContext dbContext = new ApplicationDbContext();
 
-		public static void AddCart(Product product, string userid)
+		public  void AddCart(Product product, string userid)
 		{
 			try
 			{
@@ -55,7 +56,7 @@ namespace Web_Store.Services
 		}
 
 
-		public static void RemoveCart(Cart cart)
+		public  string RemoveCart(Cart cart)
 		{
 			try
 			{
@@ -64,18 +65,20 @@ namespace Web_Store.Services
 				dbContext.carts.Attach(cartToRemove);
 				dbContext.carts.Remove(cartToRemove);
 				dbContext.SaveChanges();
-				
+				return "Success";
 				
 				//dbContext.Entry(cartToRemove).State = EntityState.Deleted;
 				//dbContext.SaveChanges();
 			}
 			catch (Exception e)
 			{
+				return "Error";
+
 				Console.WriteLine(e.Message);
 			}
 		}
 
-		public static int GetCartCount(string userid)
+		public  int GetCartCount(string userid)
 		{
 			int count = 0;
 			try
@@ -91,20 +94,9 @@ namespace Web_Store.Services
 			return count;
 		}
 
-		public static Tuple<List<Product>, List<Cart>> DisplayCarts(string userid)
-		{
-			List<Cart> carts = new List<Cart>();
-			int cId = CategoryServices.GetCategoryID(userid);
-			carts = dbContext.carts.Where(o => o.UserId == userid)
-				.ToList();
-			List<Product> cartproducts = new List<Product>();
-			cartproducts = CartServices.GetCartProducts(carts);
-			Tuple<List<Product>, List<Cart>> tuple = new Tuple<List<Product>, List<Cart>>(cartproducts, carts);
+	
 
-			return tuple;
-		}
-
-		public static List<Product> GetCartProducts(List<Cart> carts)
+		public List<Product> GetCartProducts(List<Cart> carts)
 		{
 			List<Product> cartproducts = new List<Product>();
 

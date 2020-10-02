@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Web_Store.Entities;
+using Web_Store.Interfaces;
 using Web_Store.Models;
 
 namespace Web_Store.Services
 {
-	public class ProductServices
+	public class ProductServices : IProduct
 	{
-		public static ApplicationDbContext dbContext = new ApplicationDbContext();
-		public static void AddNewProduct(AddProductViewModel addProduct, string userid)
+		public  ApplicationDbContext dbContext = new ApplicationDbContext();
+		public  void AddNewProduct(AddProductViewModel addProduct, string userid)
 		{
 			try
 			{
@@ -42,7 +43,7 @@ namespace Web_Store.Services
 			//	in C: \Users\Stanley\source\repos\Web Store\Web Store\Services\ProductServices.cs:line 29
 		}
 
-		public static List<Product> GetProducts(string category)
+		public  List<Product> GetProducts(string category)
 		{
 			List<Product> all = new List<Product>();
 			if (string.IsNullOrEmpty(category))

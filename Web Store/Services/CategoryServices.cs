@@ -5,15 +5,16 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Web_Store.Entities;
+using Web_Store.Interfaces;
 using Web_Store.Models;
 
 namespace Web_Store.Services
 {
-	public class CategoryServices
+	public class CategoryServices : ICategory
 	{
-		public static ApplicationDbContext dbContext = new ApplicationDbContext();
+		public ApplicationDbContext dbContext = new ApplicationDbContext();
 
-		public static string AddCategory(AddCategoryViewModel addCategory, string userId)
+		public string AddCategory(AddCategoryViewModel addCategory, string userId)
 		{
 			Category newcategory = new Category()
 			{
@@ -36,7 +37,7 @@ namespace Web_Store.Services
 			}
 		}
 
-		public static List<string> GetCategory()
+		public List<string> GetCategory()
 		{
 			List<string> all = new List<string>();
 			all.Add("All");
@@ -46,7 +47,7 @@ namespace Web_Store.Services
 			return all;
 		}
 
-		public static int GetCategoryID(string category)
+		public int GetCategoryID(string category)
 		{
 			int all = dbContext.categories
 						.Where(o => o.CategoryName == category)

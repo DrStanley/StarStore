@@ -4,6 +4,16 @@
 <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
 
 <script>
+
+    var jsTempDataSuccess = '@ViewBag.Mess';
+    $(document).ready(function () {
+
+       @if(TempData.ContainsKey("Success"))
+    {
+        @:toastr.success("Message Sent Successfully");
+    }
+    });
+
     var slideIndex = 1;
     showSlides(slideIndex);
 
@@ -43,6 +53,7 @@
     </figure>
 </div>
 
+<p>@ViewBag.Mess</p>
 <div class="row">
     <div class="col-md-4">
         <h2>Quality Item</h2>

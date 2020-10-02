@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Web_Store.Entities;
+using Web_Store.Interfaces;
 using Web_Store.Models;
 
 namespace Web_Store.Services
 {
-	public class CustomerServices
+	public class CustomerServices:ICustomer
 	{
-		public static ApplicationDbContext dbContext = new ApplicationDbContext();
+		public ApplicationDbContext dbContext = new ApplicationDbContext();
 
-		public static void CreateCustomers(RegisterViewModel registerCustomer, string userid)
+		public void CreateCustomers(RegisterViewModel registerCustomer, string userid)
 		{
 
 			Customer newcustomer = new Customer()

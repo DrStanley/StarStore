@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Web_Store.Interfaces;
 using Web_Store.Models;
 using Web_Store.Services;
 
@@ -8,6 +9,37 @@ namespace Web_Store.Controllers
 {
 	public class AdminController : Controller
 	{
+		private  string userId;
+
+		private ICart icart;
+		private IAdmin iadmin;
+		private IProduct iproduct;
+		private ICategory icategory;
+		public AdminController(string UserId)
+		{
+			userId = UserId;
+		}
+
+		public AdminController()
+		{
+			icart = new CartServices();
+			iadmin = new AdminServices();
+			iproduct = new ProductServices();
+			icategory = new CategoryServices();
+
+		}
+		public string UserId
+		{
+			get
+			{
+				return userId ?? HttpContext.User.Identity.GetUserId();
+			}
+			set
+			{
+				userId = value;
+			}
+		}
+
 		//GET: Admin
 		[Authorize(Roles = "Admin")]
 		public ActionResult Index()
@@ -27,7 +59,7 @@ namespace Web_Store.Controllers
 
 			if (ModelState.IsValid)
 			{
-				string res = AdminServices.Addadmin(model);
+				string res = iadmin.Addadmin(model);
 				;
 
 				if (res == "Successful")
@@ -63,12 +95,13 @@ namespace Web_Store.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var userId = HttpContext.User.Identity.GetUserId();
-
-				ProductServices.AddNewProduct(model, userId);
-				return RedirectToAction("Index", "Home");
+				iproduct.AddNewProduct(model, userId);
+				ViewBag.Mess = model.ProductName+"Product Added";
+				return View();
 
 			}
+				ViewBag.Mess ="An Error Ocurred";
+
 			return View(model);
 		}
 
@@ -85,11 +118,12 @@ namespace Web_Store.Controllers
 
 			if (ModelState.IsValid)
 			{
-				var userId = HttpContext.User.Identity.GetUserId();
-				var e = CategoryServices.AddCategory(model, userId);
+				var e = icategory.AddCategory(model, userId);
 				if (e == "Saved")
 				{
-					return RedirectToAction("Index", "Home");
+					TempData["Success"] = model.CategoryName + " Added";
+					ViewBag.Mess = model.CategoryName+" Added";
+					return View(); ;
 				}
 				ViewBag.ModelMessage = "Category already Exist";
 

@@ -181,6 +181,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IAdmin.cs" />
+    <Compile Include="Interfaces\ICart.cs" />
+    <Compile Include="Interfaces\ICategory.cs" />
+    <Compile Include="Interfaces\ICustomer.cs" />
+    <Compile Include="Interfaces\IProduct.cs" />
+    <Compile Include="Interfaces\IShopTupleData.cs" />
     <Compile Include="Migrations\202009212025594_InitialCreate.cs" />
     <Compile Include="Migrations\202009212025594_InitialCreate.Designer.cs">
       <DependentUpon>202009212025594_InitialCreate.cs</DependentUpon>
@@ -230,6 +236,7 @@
     <Compile Include="Services\CategoryServices.cs" />
     <Compile Include="Services\CustomerServices.cs" />
     <Compile Include="Services\ProductServices.cs" />
+    <Compile Include="Services\ShopTupleData.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -304,7 +311,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="_ChartFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
