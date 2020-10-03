@@ -1,48 +1,60 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Shop";
 }
 @using Web_Store.Entities;
 
-@model Tuple<List<Product>, List<string>,int>
+@model Tuple<List<Product>, List<string>, int>
 
-    <div class="row">
-        <h2 class="col-md-4">Shop</h2>
-        @using (Html.BeginForm("Index", "Shop"))
-        {
-    <div class="col-md-4" style="margin:20px">
-        <label> Category: </label> <select name="options">
-            @foreach (var category in Model.Item2)
-            {
-                <option>@category</option>
+    <script>
+    var xc= @TempData["Success"];
+    $(document).ready(function ()
+    {
+        if (xc !=null)
+    {
+        alert("Added to Cart")
+    }
+});
+    </script>
 
-            }
-        </select>
-        <input type="submit" value="Filter" class="btn-lg btn-info"/>
+<div class="row">
+    <h2 class="col-md-4">Shop</h2>
+    @using (Html.BeginForm("Index", "Shop"))
+    {
+        <div class="col-md-4" style="margin:20px">
+            <label> Category: </label> <select name="options">
+                @foreach (var category in Model.Item2)
+                {
+                    <option>@category</option>
 
-    </div>
-        }
-        <label style="font: bold; font-family: Arial; margin:20px;">
-        @Html.ActionLink("Cart("+Model.Item3+")", "VeiwCart", "Shop")</label>
+                }
+            </select>
+            <input type="submit" value="Filter" class="btn-lg btn-info" />
 
-    </div>
+        </div>
+    }
+    <label style="font: bold; font-family: Arial; margin:20px;">
+        @Html.ActionLink("Cart(" + Model.Item3 + ")", "VeiwCart", "Shop")
+    </label>
+
+</div>
 
 <hr />
 
 @if (Model.Item1.Count < 1)
 {
-    <h4 class="text-danger">Out of Stock</h4>
+    <h4 class="text-danger" align="center">Out of Stock</h4>
 }
 else
 {
     int count = 0;
-    using (Html.BeginForm("AddToCart", "Shop"))
+
+    foreach (var product in Model.Item1)
     {
-        foreach (var product in Model.Item1)
+        using (Html.BeginForm("AddToCart", "Shop"))
         {
             var x = count;
             <div class="row" style="border:5px #808080">
-                <input id="prodId_@x" type="hidden" value="@product.ProductID" name="productID"/>
+                <input id="prodId_@x" type="hidden" value="@product.ProductID" name="productID" />
                 <div class="col-md-4">
                     <h3>@product.ProductName</h3>
                     <img src="~/Images/376821.jpg" alt="Logo" style="width:350px; height: 200px;" />
@@ -72,7 +84,7 @@ else
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" onclick="alert('Added')" />
+                            <input type="submit" value="Add to Cart" min="0" class="btn-lg btn-success" />
                         </div>
                     }
                     else
@@ -93,4 +105,5 @@ else
         }
     }
 }
+
 

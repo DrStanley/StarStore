@@ -8,6 +8,7 @@ using Web_Store.Entities;
 using Web_Store.Interfaces;
 using Web_Store.Models;
 using Web_Store.Services;
+using RedWillow.MvcToastrFlash;
 
 namespace Web_Store.Controllers
 {
@@ -56,15 +57,23 @@ namespace Web_Store.Controllers
 		[Authorize]
 		public ActionResult AddToCart(int productID, int productQuantity)
 		{
-
 			Product product = new Product()
 			{
 				ProductID = productID,
 				Quantity = productQuantity
 			};
 
-			icart.AddCart(product, userId);
+			var res = icart.AddCart(product, userId);
+			if (res == "Success")
+			{
+				this.Flash(Toastr.SUCCESS, "Welcome!", "Glad you arrived safely.");
+			}
+			else
+			{
+				this.Flash(Toastr.SUCCESS, "Error!", "Glad you arrived safely.");
 
+				TempData["Success"] = "An Error Occured";
+			}
 			return RedirectToAction("Index", "Shop");
 		}
 
@@ -73,20 +82,18 @@ namespace Web_Store.Controllers
 		public ActionResult RemoveCart(string cartID)
 		{
 			Cart cart = new Cart() { CartId = cartID };
-			var res=  icart.RemoveCart(cart);
-			if(res== "Success")
+			var res = icart.RemoveCart(cart);
+			if (res == "Success")
 			{
 				return RedirectToAction("VeiwCart", "Shop");
-
 			}
-
 			return View();
 		}
 
 		[Authorize]
 		public ActionResult VeiwCart()
 		{
-			var cartProduct = icart.DisplayCarts(userId);
+			var cartProduct = shopTupleData.DisplayCarts(userId);
 			return View(cartProduct);
 		}
 	}

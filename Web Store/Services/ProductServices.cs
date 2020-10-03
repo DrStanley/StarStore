@@ -11,7 +11,13 @@ namespace Web_Store.Services
 	public class ProductServices : IProduct
 	{
 		public  ApplicationDbContext dbContext = new ApplicationDbContext();
-		public  void AddNewProduct(AddProductViewModel addProduct, string userid)
+		ICategory categoryS;
+
+		public ProductServices()
+		{
+			categoryS = new CategoryServices();
+		}
+		public  string AddNewProduct(AddProductViewModel addProduct, string userid)
 		{
 			try
 			{
@@ -19,7 +25,7 @@ namespace Web_Store.Services
 				{
 					ProductName = addProduct.ProductName,
 					Description = addProduct.Description,
-					CategoryID = CategoryServices.GetCategoryID(addProduct.Category),
+					CategoryID = categoryS.GetCategoryID(addProduct.Category),
 					DateCreated = DateTime.Now,
 					ExpieryDate = addProduct.ExpieryDate,
 					Supplier = addProduct.Supplier,
@@ -30,29 +36,31 @@ namespace Web_Store.Services
 				};
 				dbContext.products.Add(newproduct);
 				dbContext.SaveChanges();
+				return "Success";
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e.Message);
+				return "An Error Occurred";
 			}
 
 			//at System.Data.Entity.Internal.InternalContext.SaveChanges()
-   //at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
-   //at System.Data.Entity.DbContext.SaveChanges()
-   //at Web_Store.Services.ProductServices.AddNewProduct(AddProductViewModel addProduct, String userid) 
+			//at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+			//at System.Data.Entity.DbContext.SaveChanges()
+			//at Web_Store.Services.ProductServices.AddNewProduct(AddProductViewModel addProduct, String userid) 
 			//	in C: \Users\Stanley\source\repos\Web Store\Web Store\Services\ProductServices.cs:line 29
 		}
 
 		public  List<Product> GetProducts(string category)
 		{
 			List<Product> all = new List<Product>();
-			if (string.IsNullOrEmpty(category))
+			if (string.IsNullOrEmpty(category) || category == "All")
 			{
 				all = dbContext.products.ToList();
 			}
 			else
 			{
-				int cId = CategoryServices.GetCategoryID(category);
+				int cId = categoryS.GetCategoryID(category);
 				all = dbContext.products.Where(o => o.CategoryID == cId)
 					.ToList();
 

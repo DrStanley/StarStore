@@ -9,7 +9,7 @@ namespace Web_Store.Controllers
 {
 	public class AdminController : Controller
 	{
-		private  string userId;
+		private string userId;
 
 		private ICart icart;
 		private IAdmin iadmin;
@@ -66,7 +66,7 @@ namespace Web_Store.Controllers
 				{
 					ViewBag.ModelMessage = "Admin Created Successfully";
 					await Task.Delay(5000);
-					return RedirectToAction("Index", "Admin");
+					return RedirectToAction("Index", "Home");
 				}
 				else
 				{
@@ -95,13 +95,19 @@ namespace Web_Store.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				iproduct.AddNewProduct(model, userId);
-				ViewBag.Mess = model.ProductName+"Product Added";
-				return View();
-
+				var res = iproduct.AddNewProduct(model, userId);
+				if (res == "Success")
+				{
+					ViewBag.ModelMessage = model.ProductName + " Product Added";
+					return View();
+				}
+				else
+				{
+					ViewBag.ModelMessage = "Error Occurred";
+					return View(model);
+				}
 			}
-				ViewBag.Mess ="An Error Ocurred";
-
+			ViewBag.ModelMessage = "An Error Ocurred in Model";
 			return View(model);
 		}
 
@@ -121,8 +127,7 @@ namespace Web_Store.Controllers
 				var e = icategory.AddCategory(model, userId);
 				if (e == "Saved")
 				{
-					TempData["Success"] = model.CategoryName + " Added";
-					ViewBag.Mess = model.CategoryName+" Added";
+					ViewBag.ModelMessage = model.CategoryName + " Added";
 					return View(); ;
 				}
 				ViewBag.ModelMessage = "Category already Exist";

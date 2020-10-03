@@ -13,7 +13,7 @@ namespace Web_Store.Services
 	{
 		public  ApplicationDbContext dbContext = new ApplicationDbContext();
 
-		public  void AddCart(Product product, string userid)
+		public  string AddCart(Product product, string userid)
 		{
 			try
 			{
@@ -25,7 +25,7 @@ namespace Web_Store.Services
 					quant += product.Quantity;
 					var id = dbContext.carts.Where(c => c.ProductId == product.ProductID)
 						.Select(c => c.CartId).FirstOrDefault();
-					quant += product.Quantity;
+					
 
 
 					var cart = new Cart() { CartId = id, ProductId = product.ProductID, Quantity = quant };
@@ -48,10 +48,13 @@ namespace Web_Store.Services
 					dbContext.SaveChanges();
 				}
 
+				return "Success";
+
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e.Message);
+				return "An Error Occured";
 			}
 		}
 
@@ -72,9 +75,10 @@ namespace Web_Store.Services
 			}
 			catch (Exception e)
 			{
+				Console.WriteLine(e.Message);
+
 				return "Error";
 
-				Console.WriteLine(e.Message);
 			}
 		}
 
@@ -93,8 +97,6 @@ namespace Web_Store.Services
 			}
 			return count;
 		}
-
-	
 
 		public List<Product> GetCartProducts(List<Cart> carts)
 		{

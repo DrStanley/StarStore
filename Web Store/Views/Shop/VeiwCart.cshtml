@@ -29,15 +29,16 @@
                     if (cart.ProductId == product.ProductID)
                     {
 
-    <tr style="margin:5px;">
-        <input id="prodId_@x" type="hidden" value="@cart.CartId" name="cartID" />
+                        <tr style="margin:5px;">
+                            <input id="prodId_@x" type="hidden" value="@cart.CartId" name="cartID" />
 
-        <td>@product.ProductName</td>
-        <td>@cart.Quantity</td>
-        <td>@product.UnitPrice</td>
-        <td>@(total+=(decimal)(product.UnitPrice*cart.Quantity))</td>
-        <td><input type="submit" value="Remove" class="btn-success" onclick="alert('Removed')" /></td>
-    </tr>
+                            <td>@product.ProductName</td>
+                            <td>@cart.Quantity</td>
+                            <td>@product.UnitPrice</td>
+                            <td>@(product.UnitPrice*cart.Quantity)</td>
+                            <td><input type="submit" value="Remove" class="btn-success" onclick="alert('Removed')" /></td>
+                        </tr>
+                        total += (decimal)(product.UnitPrice * cart.Quantity);
                     }
 
 
