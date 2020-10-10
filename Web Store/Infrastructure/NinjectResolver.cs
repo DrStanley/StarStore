@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Ninject;
+using Web_Store.Controllers;
 using Web_Store.Interfaces;
 using Web_Store.Services;
 
@@ -22,8 +23,8 @@ namespace Web_Store.Infrastructure
 		public void AddBindings()
 		{
 			_kernel.Bind<IProduct>().To<ProductServices>();
-			_kernel.Bind<ICart>().To<CartServices>();
-			_kernel.Bind<IShopTupleData>().To<ShopTupleData>();
+			_kernel.Bind<ICart>().To<CartServices>().WhenInjectedInto<ShopController>();
+			_kernel.Bind<IShopTupleData>().To<ShopTupleData>().WhenInjectedInto<ShopController>();
 			_kernel.Bind<IAdmin>().To<AdminServices>();
 			_kernel.Bind<ICustomer>().To<CustomerServices>();
 		}

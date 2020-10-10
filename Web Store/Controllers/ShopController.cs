@@ -17,19 +17,18 @@ namespace Web_Store.Controllers
 		private string userId;
 		private ICart icart;
 		IShopTupleData shopTupleData;
+
+		public ShopController(IShopTupleData tupleData, ICart cart)
+		{
+			shopTupleData = tupleData;
+			icart = cart;
+
+		}
+
 		public ShopController(string UserId)
 		{
 			userId = UserId;
 		}
-		public ShopController(IShopTupleData tupleData)
-		{
-			shopTupleData = tupleData;
-		}
-		public ShopController(ICart cart)
-		{
-			icart = cart;
-		}
-
 		public string UserId
 		{
 			get
@@ -41,7 +40,7 @@ namespace Web_Store.Controllers
 				userId = value;
 			}
 		}
-	
+
 
 		// GET: Shop
 		public ActionResult Index()

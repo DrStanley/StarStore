@@ -11,23 +11,43 @@ namespace Web_Store.Controllers
 	{
 		private string userId;
 
-		private ICart icart;
 		private IAdmin iadmin;
 		private IProduct iproduct;
 		private ICategory icategory;
+
+		private ICart icart;
+		IShopTupleData shopTupleData;
+
+		public AdminController(IShopTupleData tupleData)
+		{
+			shopTupleData = tupleData;
+		}
+		public AdminController(ICart cart)
+		{
+			icart = cart;
+		}
+		public AdminController(IAdmin admin)
+		{
+			iadmin = admin;
+		}
+
 		public AdminController(string UserId)
 		{
 			userId = UserId;
 		}
 
-		public AdminController()
+		public AdminController(IProduct product)
 		{
-			icart = new CartServices();
-			iadmin = new AdminServices();
-			iproduct = new ProductServices();
+			iproduct = product;
 			icategory = new CategoryServices();
 
 		}
+		public AdminController(ICategory category)
+		{
+			icategory = category;
+
+		}
+
 		public string UserId
 		{
 			get
