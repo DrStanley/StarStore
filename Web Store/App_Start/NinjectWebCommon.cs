@@ -61,10 +61,7 @@ namespace Web_Store.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver =
-            //    new Ninject.Web.WebApi.NinjectDependencyResolver(kernel);
-
-
+  
             System.Web.Mvc.DependencyResolver.SetResolver(new
             Web_Store.Infrastructure.NinjectResolver(kernel));
 
