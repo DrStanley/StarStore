@@ -7,7 +7,7 @@ using Web_Store.Entities;
 
 namespace Web_Store.Interfaces
 {
-	interface ICart
+	public interface ICart
 	{
 		string AddCart(Product product, string userid);
 		string RemoveCart(Cart cart);

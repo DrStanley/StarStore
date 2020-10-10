@@ -7,7 +7,7 @@ using Web_Store.Entities;
 
 namespace Web_Store.Interfaces
 {
-	interface IShopTupleData
+	public interface IShopTupleData
 	{
 		Tuple<List<Product>, List<string>, int> DisplayProduct(string userid, string category = null);
 		Tuple<List<Product>, List<Cart>> DisplayCarts(string userid);

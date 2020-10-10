@@ -7,7 +7,7 @@ using Web_Store.Models;
 
 namespace Web_Store.Interfaces
 {
-	interface ICategory
+	public interface ICategory
 	{
 		  string AddCategory(AddCategoryViewModel addCategory, string userId);
 		  List<string> GetCategory();

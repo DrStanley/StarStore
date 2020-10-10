@@ -8,7 +8,7 @@ using Web_Store.Models;
 
 namespace Web_Store.Interfaces
 {
-	interface IProduct
+	public interface IProduct
 	{
 		List<Product> GetProducts(string category);
 		string AddNewProduct(AddProductViewModel addProduct, string userid);

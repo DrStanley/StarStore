@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using RedWillow.MvcToastrFlash;
 using Web_Store.Entities;
 using Web_Store.Interfaces;
 using Web_Store.Models;
 using Web_Store.Services;
-using RedWillow.MvcToastrFlash;
 
 namespace Web_Store.Controllers
 {
@@ -16,15 +16,18 @@ namespace Web_Store.Controllers
 	{
 		private string userId;
 		private ICart icart;
-		private IShopTupleData shopTupleData;
+		IShopTupleData shopTupleData;
 		public ShopController(string UserId)
 		{
 			userId = UserId;
 		}
-		public ShopController()
+		public ShopController(IShopTupleData tupleData)
 		{
-			shopTupleData = new ShopTupleData();
-			icart = new CartServices();
+			shopTupleData = tupleData;
+		}
+		public ShopController(ICart cart)
+		{
+			icart = cart;
 		}
 
 		public string UserId
@@ -38,6 +41,7 @@ namespace Web_Store.Controllers
 				userId = value;
 			}
 		}
+	
 
 		// GET: Shop
 		public ActionResult Index()
@@ -66,11 +70,11 @@ namespace Web_Store.Controllers
 			var res = icart.AddCart(product, userId);
 			if (res == "Success")
 			{
-				this.Flash(Toastr.SUCCESS, "Welcome!", "Glad you arrived safely.");
+				this.Flash(Toastr.SUCCESS, "Alert", "Item Aded to Cart");
 			}
 			else
 			{
-				this.Flash(Toastr.SUCCESS, "Error!", "Glad you arrived safely.");
+				this.Flash(Toastr.SUCCESS, "Alert", "Error adding Item");
 
 				TempData["Success"] = "An Error Occured";
 			}
@@ -85,8 +89,11 @@ namespace Web_Store.Controllers
 			var res = icart.RemoveCart(cart);
 			if (res == "Success")
 			{
+				this.Flash(Toastr.SUCCESS, "Alert", "Item Removed");
 				return RedirectToAction("VeiwCart", "Shop");
 			}
+			this.Flash(Toastr.SUCCESS, "Alert", "Error Removed");
+
 			return View();
 		}
 

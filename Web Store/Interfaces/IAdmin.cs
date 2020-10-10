@@ -6,7 +6,7 @@ using Web_Store.Models;
 
 namespace Web_Store.Interfaces
 {
-	interface IAdmin
+	public interface IAdmin
 	{
 	 string Addadmin(AddAdminViewModel AdminDetails);
 	}

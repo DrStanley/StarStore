@@ -7,7 +7,7 @@ using Web_Store.Models;
 
 namespace Web_Store.Interfaces
 {
-	interface ICustomer
+	public interface ICustomer
 	{
 		void CreateCustomers(RegisterViewModel registerCustomer, string userid);
 	}
