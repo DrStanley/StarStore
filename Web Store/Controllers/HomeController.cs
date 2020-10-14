@@ -11,6 +11,12 @@ namespace Web_Store.Controllers
 {
 	public class HomeController : Controller
 	{
+		IAdmin admin;
+
+		public HomeController(IAdmin iadmin)
+		{
+			admin = iadmin;
+		}
 		public ActionResult Index()
 		{
 			// adding the first Admin
@@ -18,7 +24,6 @@ namespace Web_Store.Controllers
 			model.Email = "oga@gmail.com";
 			model.Password = "Stan115.";
 			model.PhoneNumber = "08182878405";
-			IAdmin admin =new  AdminServices();
 			admin.Addadmin(model);
 
 			return View();

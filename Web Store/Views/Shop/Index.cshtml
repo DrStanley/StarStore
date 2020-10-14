@@ -1,11 +1,13 @@
 ﻿@{
     ViewBag.Title = "Shop";
 }
-@using Web_Store.Entities;
 
-@model Tuple<List<Product>, List<string>, int>
 
-    <script>
+@using Web_Store.Services;
+
+@model Tuple<List<ImagProduct>, List<string>, int>
+
+<script>
     var xc= @TempData["Success"];
     $(document).ready(function ()
     {
@@ -14,7 +16,7 @@
         alert("Added to Cart")
     }
 });
-    </script>
+</script>
 
 <div class="row">
     <h2 class="col-md-4">Shop</h2>
@@ -57,7 +59,7 @@ else
                 <input id="prodId_@x" type="hidden" value="@product.ProductID" name="productID" />
                 <div class="col-md-4">
                     <h3>@product.ProductName</h3>
-                    <img src="~/Images/376821.jpg" alt="Logo" style="width:350px; height: 200px;" />
+                    <img src="@product.Image" alt="Logo" style="width:350px; height: 200px;" />
                 </div>
                 <div class="col-md-4">
                     <h3>Item Descrption</h3>

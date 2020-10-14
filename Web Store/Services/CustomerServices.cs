@@ -10,7 +10,11 @@ namespace Web_Store.Services
 {
 	public class CustomerServices:ICustomer
 	{
-		public ApplicationDbContext dbContext = new ApplicationDbContext();
+		public ApplicationDbContext dbContext;
+		public CustomerServices(ApplicationDbContext db)
+		{
+			dbContext = db;
+		}
 
 		public void CreateCustomers(RegisterViewModel registerCustomer, string userid)
 		{

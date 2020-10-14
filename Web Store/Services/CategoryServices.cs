@@ -12,8 +12,11 @@ namespace Web_Store.Services
 {
 	public class CategoryServices : ICategory
 	{
-		public ApplicationDbContext dbContext = new ApplicationDbContext();
-
+		public ApplicationDbContext dbContext;
+		public CategoryServices(ApplicationDbContext db)
+		{
+			dbContext = db;
+		}
 		public string AddCategory(AddCategoryViewModel addCategory, string userId)
 		{
 			Category newcategory = new Category()

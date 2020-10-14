@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Web_Store.Entities;
 using Web_Store.Interfaces;
@@ -10,25 +11,29 @@ namespace Web_Store.Services
 {
 	public class ShopTupleData : IShopTupleData
 	{
-		public ApplicationDbContext dbContext = new ApplicationDbContext();
+		public ApplicationDbContext dbContext;
 
-		public CartServices cartServices;
-		public ProductServices productServices;
-		public CategoryServices categoryServices;
+		public ICart cartServices;
+		public IProduct productServices;
+		public ICategory categoryServices;
 
+		public ShopTupleData(IProduct iproduct, ICategory icategory, ICart icart, ApplicationDbContext db)
+		{
+			categoryServices = icategory;
+			productServices = iproduct;
+			cartServices = icart;
+			dbContext = db;
+		}
 		public ShopTupleData()
 		{
-			categoryServices = new CategoryServices();
-			productServices = new ProductServices();
-			cartServices = new CartServices();
-
+				
 		}
-		public Tuple<List<Product>, List<string>, int> DisplayProduct(string userid,string category=null)
+		public Tuple<List<ImagProduct>, List<string>, int> DisplayProduct(string userid,string category=null)
 		{
 			var categories = categoryServices.GetCategory();
-			var product = productServices.GetProducts(category);
+			var product =  productServices.GetProducts(category);
 			int CartCount = cartServices.GetCartCount(userid);
-			var tuple = new Tuple<List<Product>, List<string>, int>(product, categories, CartCount);
+			var tuple = new Tuple<List<ImagProduct>, List<string>, int>(product, categories, CartCount);
 
 			return tuple;
 		}

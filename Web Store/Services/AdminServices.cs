@@ -11,9 +11,12 @@ namespace Web_Store.Services
 {
 	public class AdminServices : IAdmin
 	{
-		public static ApplicationDbContext dbContext = new ApplicationDbContext();
+		public static ApplicationDbContext dbContext;
 
-		
+		public AdminServices( ApplicationDbContext db)
+		{
+			dbContext = db;
+		}
 
 		public string Addadmin(AddAdminViewModel AdminDetails)
 		{

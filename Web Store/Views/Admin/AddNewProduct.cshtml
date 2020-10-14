@@ -1,20 +1,16 @@
 ﻿@model Web_Store.Models.AddProductViewModel
 
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("AddNewProduct",
+                        "Admin",
+                        FormMethod.Post,
+                        new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
         <h4>Add New Product</h4>
         <hr />
-        <h3 class="text-primary success">@ViewBag.ModelMessage</h3>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         <div class="form-group">
             @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,7 +18,6 @@
                 @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
             </div>
         </div>
-
 
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -33,26 +28,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AddImage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
+                <input type="file" for="AddImage" for-asp="AddImage" name="file" id="file" />
             </div>
+
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ExpieryDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input asp-for="ExpieryDate" type="datetime-local" name="ExpieryDate" for="ExpieryDate" class="form-control" />
+                @Html.EditorFor(model => model.ExpieryDate, new { htmlAttributes = new {Type="datetime-local", @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ExpieryDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -61,6 +48,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -87,5 +82,3 @@
         </div>
     </div>
 }
-
-

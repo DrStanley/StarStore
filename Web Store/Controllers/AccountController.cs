@@ -20,10 +20,16 @@ namespace Web_Store.Controllers
 		private ApplicationSignInManager _signInManager;
 		private ApplicationUserManager _userManager;
 
+		ICustomer customer;
 		public AccountController()
 		{
 		}
 
+
+		public AccountController(ICustomer icustomer)
+		{
+			customer = icustomer;
+		}
 		public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
 		{
 			UserManager = userManager;
@@ -163,8 +169,7 @@ namespace Web_Store.Controllers
 				var result = await UserManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
-					ICustomer newCustomer = new CustomerServices();
-					newCustomer.CreateCustomers(model, user.Id);
+					customer.CreateCustomers(model, user.Id);
 
 					await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 

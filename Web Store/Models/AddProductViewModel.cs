@@ -18,7 +18,8 @@ namespace Web_Store.Models
         [StringLength(1000, MinimumLength = 20)]
         public string Description { get; set; }
 
-        public string ImagePath { get; set; }
+        [Display(Name = "Image")]
+        public HttpPostedFileBase AddImage { get; set; }
 
         [Display(Name = "Expiry Date")]
         [Required(ErrorMessage = "Please choose an Expiery Date")]

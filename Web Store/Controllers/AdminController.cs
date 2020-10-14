@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Web_Store.Interfaces;
@@ -15,35 +18,15 @@ namespace Web_Store.Controllers
 		private IProduct iproduct;
 		private ICategory icategory;
 
-		private ICart icart;
-		IShopTupleData shopTupleData;
-
-		public AdminController(IShopTupleData tupleData)
-		{
-			shopTupleData = tupleData;
-		}
-		public AdminController(ICart cart)
-		{
-			icart = cart;
-		}
-		public AdminController(IAdmin admin)
-		{
-			iadmin = admin;
-		}
-
-		public AdminController(string UserId)
+		public AdminController(string UseurId)
 		{
 			userId = UserId;
 		}
 
-		public AdminController(IProduct product)
+		public AdminController(IAdmin admin, IProduct product, ICategory category)
 		{
+			iadmin = admin;
 			iproduct = product;
-			icategory = new CategoryServices();
-
-		}
-		public AdminController(ICategory category)
-		{
 			icategory = category;
 
 		}
@@ -80,7 +63,6 @@ namespace Web_Store.Controllers
 			if (ModelState.IsValid)
 			{
 				string res = iadmin.Addadmin(model);
-				;
 
 				if (res == "Successful")
 				{
@@ -111,22 +93,49 @@ namespace Web_Store.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult AddNewProduct(AddProductViewModel model)
+		public ActionResult AddNewProduct(AddProductViewModel model, HttpPostedFileBase file)
 		{
-			if (ModelState.IsValid)
+
+			try
 			{
-				var res = iproduct.AddNewProduct(model, userId);
-				if (res == "Success")
+				if (file != null && file.ContentLength > 0)
 				{
-					ViewBag.ModelMessage = model.ProductName + " Product Added";
-					return View();
+
+					if (file.FileName != null)
+
+					{
+						model.AddImage = file;
+						if (ModelState.IsValid)
+						{
+							var res = iproduct.AddNewProduct(model, UserId);
+							if (res == "Success")
+							{
+								ViewBag.ModelMessage = model.ProductName + " Product Added";
+								return View(model);
+							}
+							else
+							{
+								ViewBag.ModelMessage = "Error Occurred";
+								return View(model);
+							}
+
+						}
+					}
 				}
 				else
 				{
-					ViewBag.ModelMessage = "Error Occurred";
+					ViewBag.ModelMessage = "Please Upload an Image";
 					return View(model);
+
 				}
 			}
+			catch (Exception ex)
+			{
+				ViewBag.Message = "ERROR:" + ex.Message.ToString();
+			}
+
+
+
 			ViewBag.ModelMessage = "An Error Ocurred in Model";
 			return View(model);
 		}
@@ -144,7 +153,7 @@ namespace Web_Store.Controllers
 
 			if (ModelState.IsValid)
 			{
-				var e = icategory.AddCategory(model, userId);
+				var e = icategory.AddCategory(model, UserId);
 				if (e == "Saved")
 				{
 					ViewBag.ModelMessage = model.CategoryName + " Added";

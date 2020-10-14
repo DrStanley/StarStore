@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Web_Store.Entities;
 using Web_Store.Interfaces;
@@ -10,14 +12,18 @@ namespace Web_Store.Services
 {
 	public class ProductServices : IProduct
 	{
-		public  ApplicationDbContext dbContext = new ApplicationDbContext();
+		public ApplicationDbContext dbContext ;
 		ICategory categoryS;
 
+		public ProductServices(ICategory icategory, ApplicationDbContext db)
+		{
+			categoryS = icategory;
+			dbContext = db;
+		}
 		public ProductServices()
 		{
-			categoryS = new CategoryServices();
 		}
-		public  string AddNewProduct(AddProductViewModel addProduct, string userid)
+		public string AddNewProduct(AddProductViewModel addProduct, string userid)
 		{
 			try
 			{
@@ -30,7 +36,8 @@ namespace Web_Store.Services
 					ExpieryDate = addProduct.ExpieryDate,
 					Supplier = addProduct.Supplier,
 					UnitPrice = addProduct.UnitPrice,
-					ImagePath = addProduct.ImagePath,
+					Image = ProductServices.ImageConvertToByte(addProduct.AddImage),
+				
 					Quantity = addProduct.Quantity,
 					UserId = userid
 				};
@@ -51,21 +58,59 @@ namespace Web_Store.Services
 			//	in C: \Users\Stanley\source\repos\Web Store\Web Store\Services\ProductServices.cs:line 29
 		}
 
-		public  List<Product> GetProducts(string category)
+		public List<ImagProduct> GetProducts(string category)
 		{
-			List<Product> all = new List<Product>();
+			List<Product> products = new List<Product>();
 			if (string.IsNullOrEmpty(category) || category == "All")
 			{
-				all = dbContext.products.ToList();
+				products = dbContext.products.ToList();
 			}
 			else
 			{
 				int cId = categoryS.GetCategoryID(category);
-				all = dbContext.products.Where(o => o.CategoryID == cId)
+				products = dbContext.products.Where(o => o.CategoryID == cId)
 					.ToList();
 
 			}
-			return all;
+			List<ImagProduct> ImagProducts = new List<ImagProduct>();
+			foreach (var item in products)
+			{
+				ImagProduct imagProduct = new ImagProduct()
+				{
+					ProductID = item.ProductID,
+					Description = item.Description,
+					Image = ProductServices.ImageConvertToString(item.Image),
+					DateCreated = item.DateCreated,
+					ExpieryDate = item.ExpieryDate,
+					ProductName = item.ProductName,
+					Supplier = item.Supplier,
+					UnitPrice = item.UnitPrice,
+					Quantity = item.Quantity,
+					CategoryID = item.CategoryID
+				};
+				ImagProducts.Add(imagProduct);
+			}
+
+			return ImagProducts;
+		}
+
+		public static string ImageConvertToString(byte[] bytes)
+		{
+			string base64String = Convert.ToBase64String(bytes, 0, bytes.Length);
+
+			return "data:image/png;base64," + base64String;
+		}
+		public static byte[] ImageConvertToByte(HttpPostedFileBase file)
+		{
+			Byte[] bytes = null;
+
+			Stream fs = file.InputStream;
+
+			BinaryReader br = new BinaryReader(fs);
+
+			bytes = br.ReadBytes((Int32)fs.Length);
+
+			return bytes;
 		}
 	}
 }

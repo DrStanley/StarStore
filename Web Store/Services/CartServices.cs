@@ -11,8 +11,11 @@ namespace Web_Store.Services
 {
 	public class CartServices : ICart
 	{
-		public  ApplicationDbContext dbContext = new ApplicationDbContext();
-
+		public  ApplicationDbContext dbContext;
+		public CartServices(ApplicationDbContext db)
+		{
+			dbContext = db;
+		}
 		public  string AddCart(Product product, string userid)
 		{
 			try
