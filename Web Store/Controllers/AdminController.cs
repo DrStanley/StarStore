@@ -140,7 +140,6 @@ namespace Web_Store.Controllers
 			return View(model);
 		}
 
-
 		[Authorize(Roles = "Admin")]
 		public ActionResult AddCategories()
 		{
