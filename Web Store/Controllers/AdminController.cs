@@ -47,6 +47,7 @@ namespace Web_Store.Controllers
 		[Authorize(Roles = "Admin")]
 		public ActionResult Index()
 		{
+			ViewBag.Title = "Home";
 			return View();
 		}
 
@@ -84,63 +85,7 @@ namespace Web_Store.Controllers
 			return View("AddNewAdmin", model);
 		}
 
-
-		[Authorize(Roles = "Admin")]
-		public ActionResult AddNewProduct()
-		{
-			//ViewBag.CategoryList = CategoryServices.GetCategory(null);
-			return View();
-		}
-
-		[HttpPost]
-		public ActionResult AddNewProduct(AddProductViewModel model, HttpPostedFileBase file)
-		{
-
-			try
-			{
-				if (file != null && file.ContentLength > 0)
-				{
-
-					if (file.FileName != null)
-
-					{
-						model.AddImage = file;
-						if (ModelState.IsValid)
-						{
-							var res = iproduct.AddNewProduct(model, UserId);
-							if (res == "Success")
-							{
-								ViewBag.ModelMessage = model.ProductName + " Product Added";
-								return View(model);
-							}
-							else
-							{
-								ViewBag.ModelMessage = "Error Occurred";
-								return View(model);
-							}
-
-						}
-					}
-				}
-				else
-				{
-					ViewBag.ModelMessage = "Please Upload an Image";
-					return View(model);
-
-				}
-			}
-			catch (Exception ex)
-			{
-				ViewBag.Message = "ERROR:" + ex.Message.ToString();
-			}
-
-
-
-			ViewBag.ModelMessage = "An Error Ocurred in Model";
-			return View(model);
-		}
-
-		[Authorize(Roles = "Admin")]
+-		[Authorize(Roles = "Admin")]
 		public ActionResult AddCategories()
 		{
 			return View();

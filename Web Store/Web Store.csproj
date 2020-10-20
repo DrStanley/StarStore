@@ -204,6 +204,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Category.cs" />
@@ -1560,7 +1561,7 @@
     <Content Include="Views\Admin\AddNewAdmin.cshtml" />
     <Content Include="Views\Admin\AddCategories.cshtml" />
     <Content Include="Views\Shop\VeiwCart.cshtml" />
-    <Content Include="Views\Admin\AddNewProduct.cshtml" />
+    <Content Include="Views\Product\AddNewProduct.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -1572,6 +1573,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Product\RemoveProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

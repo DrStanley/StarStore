@@ -11,7 +11,8 @@ namespace Web_Store.Interfaces
 {
 	public interface IProduct
 	{
-	List<ImagProduct> GetProducts(string category);
+		List<ImagProduct> GetProducts(string category);
 		string AddNewProduct(AddProductViewModel addProduct, string userid);
+		string RemoveProduct(Product product);
 	}
 }

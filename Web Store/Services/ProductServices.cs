@@ -12,9 +12,8 @@ namespace Web_Store.Services
 {
 	public class ProductServices : IProduct
 	{
-		public ApplicationDbContext dbContext ;
+		public ApplicationDbContext dbContext;
 		ICategory categoryS;
-
 		public ProductServices(ICategory icategory, ApplicationDbContext db)
 		{
 			categoryS = icategory;
@@ -37,7 +36,7 @@ namespace Web_Store.Services
 					Supplier = addProduct.Supplier,
 					UnitPrice = addProduct.UnitPrice,
 					Image = ProductServices.ImageConvertToByte(addProduct.AddImage),
-				
+
 					Quantity = addProduct.Quantity,
 					UserId = userid
 				};
@@ -112,5 +111,29 @@ namespace Web_Store.Services
 
 			return bytes;
 		}
+		public string RemoveProduct(Product product)
+		{
+			try
+			{
+				Product productToRemove = dbContext.products.SingleOrDefault(c => c.ProductID == product.ProductID);
+
+				dbContext.products.Attach(productToRemove);
+				dbContext.products.Remove(productToRemove);
+				dbContext.SaveChanges();
+				return "Success";
+
+				//dbContext.Entry(cartToRemove).State = EntityState.Deleted;
+				//dbContext.SaveChanges();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+
+				return "Error";
+
+			}
+		}
+
+
 	}
 }

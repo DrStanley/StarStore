@@ -87,7 +87,16 @@ namespace Web_Store.Controllers
 			switch (result)
 			{
 				case SignInStatus.Success:
-					return RedirectToAction("Index", "Home");
+					var user = new ClaimsPrincipal(AuthenticationManager.AuthenticationResponseGrant.Identity);
+					if (user.IsInRole("Admin"))
+					{
+						return RedirectToAction("Index", "Admin");
+
+					}
+					else
+					{
+						return RedirectToAction("Index", "Home");
+					}
 				case SignInStatus.LockedOut:
 					return View("Lockout");
 				case SignInStatus.RequiresVerification:
@@ -465,7 +474,18 @@ namespace Web_Store.Controllers
 			{
 				return Redirect(returnUrl);
 			}
-			return RedirectToAction("Index", "Home");
+			var user = new ClaimsPrincipal(AuthenticationManager.AuthenticationResponseGrant.Identity);
+
+
+			if (user.IsInRole("Admin"))
+			{
+				return RedirectToAction("Index", "Admin");
+
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
 		}
 
 		internal class ChallengeResult : HttpUnauthorizedResult

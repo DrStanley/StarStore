@@ -1,54 +1,76 @@
-﻿
-    <div class="table-responsive-md">
-        <div class="row" style="margin:5px;">
-            <fieldset>
-                <legend>Products</legend>
-                <div class="col-lg-4" style="margin-bottom:10px">
-                    <img src="~/Icons/box-seam.svg" alt="" width="100" role="img" height="100" title="Cart">
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="table-responsive-md">
+    <div class="row" style="margin:5px;">
+        <fieldset>
+            <legend>Products</legend>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <img src="~/Icons/box-seam.svg" alt="" width="100" role="img" height="100" title="Cart">
 
-                    <p>This adds new products to your shop.</p>
-                    <span class="nav-item btn-lg bg-info">@Html.ActionLink("New Product", "AddNewProduct", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
-                </div>
-                <div class="col-lg-4" style="margin-bottom:10px">
-                    <img src="~/Icons/box.svg" alt="" width="100" height="100" role="img" title="Cart">
-                    <p>This is to edit the products in your shop.</p>
-                    <span class="nav-item btn-lg bg-info">@Html.ActionLink("Edit Product", "AddNewProduct", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+                <p>This adds new products to your shop.</p>
+                <span class="nav-item btn-lg bg-info">@Html.ActionLink("New Product", "AddNewProduct", "Product", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+            </div>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <img src="~/Icons/box.svg" alt="" width="100" height="100" role="img" title="Cart">
+                <p>This is to edit the products in your shop.</p>
+                <span class="nav-item btn-lg bg-info">@Html.ActionLink("Edit Product", "AddNewProduct", "Product", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
 
-                </div>
-                <div class="col-lg-4" style="margin-bottom:10px">
-                    <div>
-                        <img src="~/Icons/eject.svg" alt="" width="100" role="img" height="100" title="Cart">
-                        <p>This is to remove the products in your shop.</p>
-                        <span class="nav-item btn-lg bg-info">@Html.ActionLink("Remove Product", "AddNewProduct", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
-
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="row" style="margin:5px;">
-            <fieldset>
-                <legend>Categories</legend>
-                <div class="col-lg-4" style="margin-bottom:10px">
-                    <img src="~/Icons/box-seam.svg" alt="" width="100" role="img" height="100" title="Cart">
-
-                    <p>This adds new category to your shop.</p>
-                    <span class="nav-item btn-lg bg-info">@Html.ActionLink("New Category", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
-                </div>
-                <div class="col-lg-4" style="margin-bottom:10px">
-                    <img src="~/Icons/box.svg" alt="" width="100" height="100" role="img" title="Cart">
-                    <p>This is to edit the products in your shop.</p>
-                    <span class="nav-item btn-lg bg-info">@Html.ActionLink("Edit Category", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+            </div>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <div>
+                    <img src="~/Icons/eject.svg" alt="" width="100" role="img" height="100" title="Cart">
+                    <p>This is to remove the products in your shop.</p>
+                    <span class="nav-item btn-lg bg-info">@Html.ActionLink("Remove Product", "AddNewProduct", "Product", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
 
                 </div>
-                <div class="col-lg-4" style="margin-bottom:10px">
-                    <div>
-                        <img src="~/Icons/eject.svg" alt="" width="100" role="img" height="100" title="Cart">
-                        <p>This is to remove the products in your shop.</p>
-                        <span class="nav-item btn-lg bg-info">@Html.ActionLink("Remove Category", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
-
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-
+            </div>
+        </fieldset>
     </div>
+    <div class="row" style="margin:5px;">
+        <fieldset>
+            <legend>Categories</legend>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <img src="~/Icons/app-indicator.svg" alt="" width="100" role="img" height="100" title="Cart">
+
+                <p>This adds new category to your shop.</p>
+                <span class="nav-item btn-lg bg-info">@Html.ActionLink("New Category", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+            </div>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <img src="~/Icons/card-text.svg" alt="" width="100" height="100" role="img" title="Cart">
+                <p>This is to edit the products in your shop.</p>
+                <span class="nav-item btn-lg bg-info">@Html.ActionLink("Edit Category", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+
+            </div>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <div>
+                    <img src="~/Icons/eject.svg" alt="" width="100" role="img" height="100" title="Cart">
+                    <p>This is to remove the products in your shop.</p>
+                    <span class="nav-item btn-lg bg-info">@Html.ActionLink("Remove Category", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="row" style="margin:5px;">
+        <fieldset>
+            <legend>Orders</legend>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <img src="~/Icons/briefcase.svg" alt="" width="100" role="img" height="100" title="Cart">
+
+                <p>This adds new category to your shop.</p>
+                <span class="nav-item btn-lg bg-info">@Html.ActionLink("Process Orders", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+            </div>
+            <div class="col-lg-4" style="margin-bottom:10px">
+                <div>
+                    <img src="~/Icons/exclamation-circle.svg" alt="" width="100" role="img" height="100" title="Cart">
+                    <p>This is to remove the products in your shop.</p>
+                    <span class="nav-item btn-lg bg-info">@Html.ActionLink("Remove Category", "AddCategories", "Admin", routeValues: null, htmlAttributes: new { id = "addNewAdminLink" })</span>
+
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+

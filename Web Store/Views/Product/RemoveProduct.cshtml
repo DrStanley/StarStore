@@ -1,0 +1,51 @@
+﻿@using Web_Store.Services;
+@model List<ImagProduct>
+@{
+    ViewBag.Title = "Product";
+
+}
+<div class="panel-body">
+  
+    @if (Model.Count < 1)
+    {
+        <h4 class="text-danger">No Product Available</h4>
+    }
+    else
+    {
+        <table border="1" class="col-lg-10" style="margin:5px;">
+            <tr>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Expiry Date</th>
+                <th>Action</th>
+            </tr>
+
+
+            @foreach (var product in Model)
+            {
+                using (Html.BeginForm("RemoveProduct", "Product"))
+                {
+
+                    <tr style="margin:5px;">
+                        <input type="hidden" value="@product.ProductID" name="productID" />
+
+                        <td>
+                            <img src="@product.Image" alt="Logo" style="width:35px; height: 35px;" />
+                        </td>
+                        <td>@product.ProductName</td>
+                        <td>@product.Description</td>
+                        <td>@product.Quantity</td>
+                        <td>@product.UnitPrice</td>
+                        <td>@product.ExpieryDate</td>
+                        <td>
+                            <input type="submit" value="Remove" class="btn-success" onclick="alert('Removed')" />
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+</div>
