@@ -14,5 +14,6 @@ namespace Web_Store.Interfaces
 		List<ImagProduct> GetProducts(string category);
 		string AddNewProduct(AddProductViewModel addProduct, string userid);
 		string RemoveProduct(Product product);
+		Product GetOneProduct(int productID);
 	}
 }

@@ -101,12 +101,27 @@ namespace Web_Store.Controllers
 
 
 		[Authorize(Roles = "Admin")]
-		public ActionResult RemoveProduct()
+		public ActionResult ManageProduct()
 		{
 			var imgProduct = iproduct.GetProducts(null);
 			return View(imgProduct);
 		}
 
+		[Authorize(Roles = "Admin")]
+		[HttpPost]
+		public ActionResult DetailProduct(int productID)
+		{
+			Product product = new Product() { ProductID = productID };
+			var res = iproduct.RemoveProduct(product);
+			if (res == "Success")
+			{
+				this.Flash(Toastr.SUCCESS, "Alert", "Item Removed");
+				return View("RemoveProduct");
+			}
+			this.Flash(Toastr.SUCCESS, "Alert", "Error Removed");
+
+			return View();
+		}
 		[Authorize(Roles = "Admin")]
 		[HttpPost]
 		public ActionResult RemoveProduct(int productID)
@@ -122,6 +137,8 @@ namespace Web_Store.Controllers
 
 			return View();
 		}
+
+
 
 	}
 }

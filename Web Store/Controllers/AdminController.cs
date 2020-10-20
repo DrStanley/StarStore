@@ -85,7 +85,7 @@ namespace Web_Store.Controllers
 			return View("AddNewAdmin", model);
 		}
 
--		[Authorize(Roles = "Admin")]
+		[Authorize(Roles = "Admin")]
 		public ActionResult AddCategories()
 		{
 			return View();

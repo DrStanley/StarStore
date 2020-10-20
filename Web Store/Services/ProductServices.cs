@@ -99,6 +99,7 @@ namespace Web_Store.Services
 
 			return "data:image/png;base64," + base64String;
 		}
+
 		public static byte[] ImageConvertToByte(HttpPostedFileBase file)
 		{
 			Byte[] bytes = null;
@@ -111,6 +112,7 @@ namespace Web_Store.Services
 
 			return bytes;
 		}
+
 		public string RemoveProduct(Product product)
 		{
 			try
@@ -134,6 +136,10 @@ namespace Web_Store.Services
 			}
 		}
 
-
+		public Product GetOneProduct(int productID)
+		{
+			var product = dbContext.products.Where(o => o.ProductID == productID).FirstOrDefault();
+			return product;
+		}
 	}
 }
